@@ -1,44 +1,31 @@
 package binarysearch;
 
-public class BinarySearch {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int target = 5;
+import java.util.Arrays;
+import java.util.Scanner;
 
-        int result = binarySearch(arr, target);
+public class BinarySearch {
+    /**
+     * Punto de entrada del programa.
+     *
+     * @param args argumentos de la línea de comandos (no utilizados)
+     */
+    public static void main(String[] args) {
+        InputReader inputReader = new InputReader();
+        int[] arr = inputReader.readArrayFromConsole();
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(i + 1 + "-" + arr[i]);
+        }
+
+        int target = inputReader.readIntFromConsole("Ingrese un número para buscar: ");
+
+        BinarySearcher binarySearcher = new BinarySearcher();
+        int result = binarySearcher.search(arr, target);
 
         if (result != -1) {
-            System.out.println("Valor encontrado en el índice " + result);
+            System.out.println("Valor encontrado en el índice " + (result + 1));
         } else {
             System.out.println("Valor no encontrado");
         }
     }
-
-    /**
-     * Realiza la búsqueda binaria en un arreglo ordenado.
-     *
-     * @param arr    Arreglo ordenado en el que se realizará la búsqueda.
-     * @param target Valor que se busca en el arreglo.
-     * @return Índice del valor buscado si se encuentra, -1 en caso contrario.
-     */
-    public static int binarySearch(int[] arr, int target) {
-        int left = 0; // Índice izquierdo del rango de búsqueda
-        int right = arr.length - 1; // Índice derecho del rango de búsqueda
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2; // Índice medio del rango de búsqueda
-
-            // Comparamos el valor del arreglo en el índice medio con el valor buscado
-            if (arr[mid] == target) {
-                return mid; // Valor encontrado, devuelve el índice
-            } else if (arr[mid] < target) {
-                left = mid + 1; // Valor buscado es mayor, ajustamos el rango de búsqueda a la mitad derecha
-            } else {
-                right = mid - 1; // Valor buscado es menor, ajustamos el rango de búsqueda a la mitad izquierda
-            }
-        }
-        return -1; // Valor no encontrado
-    }
-
-
 }
