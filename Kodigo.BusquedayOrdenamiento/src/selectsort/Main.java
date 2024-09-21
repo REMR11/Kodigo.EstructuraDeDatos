@@ -1,46 +1,60 @@
 package selectsort;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
- * Clase principal que contiene el método main y el algoritmo de selección.
+ * Clase que contiene el método main y el algoritmo de selección para ordenar un arreglo de enteros.
  *
  * @author REMR11
  */
-public class main {
+public class Main {
+
     /**
      * Punto de entrada del programa.
      *
-     * @param args argumentos de la línea de comandos
+     * @param args Argumentos de la línea de comandos (no utilizados en este caso)
      */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        int[] listaNumeros = {5, 4, 2, 6, 7, 3, 12, 223, 456, 34, 1};
+        System.out.print("Ingrese un conjunto de números separados por comas: ");
+        String input = scanner.nextLine();
 
-        int[] Result = SelectSort(listaNumeros);
+        String[] numbers = input.split(","); // Separa la entrada en un arreglo de strings
+        int[] listaNumeros = new int[numbers.length];
 
-        for (int i : Result) {
-            System.out.println(i);
+        for (int i = 0; i < numbers.length; i++) {
+            listaNumeros[i] = Integer.parseInt(numbers[i]); // Convierte cada string en un entero
+        }
+
+        int[] result = SelectSort(listaNumeros); // Ordena el arreglo utilizando el algoritmo de selección
+
+        System.out.println("Arreglo ordenado:");
+        for (int i : result) {
+            System.out.println(i); // Imprime el arreglo ordenado
         }
     }
 
     /**
      * Método que implementa el algoritmo de selección para ordenar un arreglo de enteros.
      *
-     * @param listaNumeros arreglo de enteros a ordenar
-     * @return arreglo ordenado
+     * @param listaNumeros Arreglo de enteros a ordenar
+     * @return Arreglo ordenado
      */
     private static int[] SelectSort(int[] listaNumeros) {
         int lista = listaNumeros.length;
 
         for (int i = 0; i < lista; i++) {
-
-            int minIndex = i;
+            int minIndex = i; // Índice del elemento mínimo en el rango de búsqueda
 
             for (int j = i + 1; j < lista; j++) {
-
                 if (listaNumeros[j] < listaNumeros[minIndex]) {
-                    minIndex = j;
+                    minIndex = j; // Actualiza el índice del elemento mínimo
                 }
             }
+
+            // Intercambia el elemento actual con el elemento mínimo
             int temp = listaNumeros[i];
             listaNumeros[i] = listaNumeros[minIndex];
             listaNumeros[minIndex] = temp;
@@ -48,6 +62,4 @@ public class main {
 
         return listaNumeros;
     }
-
-
 }
