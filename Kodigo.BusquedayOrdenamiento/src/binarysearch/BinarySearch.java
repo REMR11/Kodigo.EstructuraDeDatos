@@ -9,7 +9,7 @@ public class BinarySearch {
      *
      * @param args argumentos de la línea de comandos (no utilizados)
      */
-    public static void main(String[] args) {
+    public static void initBinarySearch(String[] args) {
         InputReader inputReader = new InputReader();
         int[] arr = inputReader.readArrayFromConsole();
         Arrays.sort(arr);

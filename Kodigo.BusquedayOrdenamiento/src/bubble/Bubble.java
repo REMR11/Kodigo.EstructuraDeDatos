@@ -1,7 +1,9 @@
+package bubble;
+
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class Bubble {
+    public static void initBubble(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         // Solicitar al usuario la cantidad de números que quiere ingresar

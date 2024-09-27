@@ -8,14 +8,14 @@ import java.util.Scanner;
  *
  * @author REMR11
  */
-public class Main {
+public class InsertSort {
 
     /**
      * Punto de entrada del programa.
      *
      * @param args Argumentos de la línea de comandos (no utilizados en este caso)
      */
-    public static void main(String[] args) {
+    public static void initInsertSort(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese un conjunto de números separados por comas: ");
