@@ -3,7 +3,7 @@ package bubble;
 import java.util.Scanner;
 
 public class Bubble {
-    public static void initBubble(String[] args) {
+    public static void initBubble() {
         Scanner scanner = new Scanner(System.in);
 
         // Solicitar al usuario la cantidad de números que quiere ingresar

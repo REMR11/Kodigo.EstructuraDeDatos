@@ -1,6 +1,5 @@
 package selectsort;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,10 +11,8 @@ public class SelectSort {
 
     /**
      * Punto de entrada del programa.
-     *
-     * @param args Argumentos de la línea de comandos (no utilizados en este caso)
      */
-    public static void initSelectSort(String[] args) {
+    public static void initSelectSort() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese un conjunto de números separados por comas: ");
