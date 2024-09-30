@@ -1,6 +1,7 @@
 import binarysearch.BinarySearch;
 import bubble.Bubble;
 import insertsort.InsertSort;
+import linealsearch.LinealSearch;
 import selectsort.SelectSort;
 
 import java.util.Scanner;
@@ -43,8 +44,8 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Has seleccionado el algoritmo lineal");
-                    // Llamar al método lineal
-                    System.out.println("Muy pronto!");
+                    LinealSearch linealSearch = new LinealSearch();
+                    linealSearch.InitLinealSearch();
                     break;
                 case 5:
                     System.out.println("Has seleccionado el algoritmo binario");
