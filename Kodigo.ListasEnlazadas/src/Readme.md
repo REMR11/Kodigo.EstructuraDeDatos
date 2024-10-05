@@ -1,5 +1,25 @@
 # Lista Enlazada Simple en Java
 
+Este proyecto ha sido desarrollado por el equipo 6 integrantes:
+
+* **Escobar Cisneros, Lisbeth**
+* **Mejía Reinosa, Ronald Eduardo**
+* **Salguero Hernández, Alejandra Marisol**
+* **Salguero Hernández, Mario Enrique**
+
+## Descripción del Proyecto
+
+Este proyecto es una implementación de una lista enlazada simple en Java, desarrollada como tarea práctica para el Bootcamp Java 18 de KODIGO.ORG.
+
+## Instructores
+
+* **Oscar Lemus**
+* **Eduardo Calle**
+
+## Tecnologías Utilizadas
+
+* **Lenguaje de programación:** Java
+
 ## Estructura de la Lista Enlazada
 
 La lista enlazada simple implementada en este proyecto consta de tres clases: `Nodo.java`, `ListaEnlazadaSimple.java` y `Main.java`.
