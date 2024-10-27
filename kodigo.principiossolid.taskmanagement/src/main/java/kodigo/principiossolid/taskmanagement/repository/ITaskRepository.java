@@ -1,3 +1,8 @@
+/***
+ * Principio Open / Closed
+ * Creo una interfaz para repositorio de tareas que puede ser extendida sin necesidad
+ * de ser modificada, de esta manera se cumple este principio.
+ */
 package kodigo.principiossolid.taskmanagement.repository;
 
 import kodigo.principiossolid.taskmanagement.domain.Task;

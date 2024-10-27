@@ -1,3 +1,7 @@
+/***
+ * Clase que implementa la interfaz ITaskRepositoriy,
+ * con el fin de cumplir con el principio Open Closed
+ */
 package kodigo.principiossolid.taskmanagement.repository;
 
 import kodigo.principiossolid.taskmanagement.domain.Task;
@@ -11,22 +15,24 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class TaskRepositoryImplement implements ITaskRepository{
+public class TaskRepository implements ITaskRepository{
     private List<Task> tasks = new ArrayList<>();
 
 
-    /**
+    /***
+     * Metodo con logica para agregar una nueva tarea a la lista actual.
      * @param pTask
-     * @return
+     * @return boolean que verifica si se agrega la nueva tarea en la lista.
      */
     @Override
     public boolean AddTask(Task pTask) {
         return tasks.add(pTask);
     }
 
-    /**
+    /***
+     * Metodo con la logica necesaria para buscar una tarea mediante el Id.
      * @param pIdTask
-     * @return
+     * @return Optional<Task> si la tarea es encontrada.
      */
     @Override
     public Optional<Task> searchTaskById(UUID pIdTask) {
@@ -35,9 +41,10 @@ public class TaskRepositoryImplement implements ITaskRepository{
                 .findFirst();
     }
 
-    /**
+    /***
+     * Metodo con la logica necesaria para buscar una tarea mediante el Titylo.
      * @param pTitle
-     * @return
+     * @return Optional<Task> si la tarea es encontrada
      */
     @Override
     public Optional<Task> searchTaskByTitle(String pTitle) {
@@ -47,13 +54,19 @@ public class TaskRepositoryImplement implements ITaskRepository{
     }
 
     /**
-     * @return
+     * Metodo que retorna una lista de tareas registradas.
+     * @return List de todas las tareas en el arreglo.
      */
     @Override
     public List<Task> GetAllTasks() {
         return new ArrayList<>(tasks);
     }
 
+    /***
+     * Metodo con la logica necesaria para actualizar el registro de una tarea existente.
+     * @param pTask necesario para la busqueda y modificacion de la tarea.
+     * @return boolean que verifica si la actualizacion fue exitosa.
+     */
     @Override
     public boolean updateTask(Task pTask) {
         Optional<Task> taskOptional = searchTaskById(pTask.getIdTask());
@@ -67,8 +80,9 @@ public class TaskRepositoryImplement implements ITaskRepository{
     }
 
     /**
+     * Metodo para la eliminacion de una tarea mediante Id
      * @param pIdTask
-     * @return
+     * @return boolean que verifica el exito de la eliminacion.
      */
     @Override
     public boolean deleteTask(UUID pIdTask) {
