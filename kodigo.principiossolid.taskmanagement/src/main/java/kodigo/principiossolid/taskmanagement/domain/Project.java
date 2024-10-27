@@ -1,17 +1,19 @@
 package kodigo.principiossolid.taskmanagement.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Project {
     private String name;
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
+
+    public void addTask(Task pTask){
+        tasks.add(pTask);
+    }
 }

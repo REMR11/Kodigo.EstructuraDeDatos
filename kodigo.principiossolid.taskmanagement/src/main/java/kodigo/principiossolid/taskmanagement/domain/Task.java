@@ -5,15 +5,20 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Task {
-    private Integer idTask;
+    private UUID idTask = UUID.randomUUID();
     private String title;
     private String description;
-    private boolean statte_Task;
+    private boolean isCompleted = false;
     private LocalDate date_Task;
+
+    public void completeTask(){
+        this.isCompleted = true;
+    }
 }
