@@ -10,5 +10,6 @@ public interface IUserRepository {
     boolean save(User pUser);
     Optional<User> findById(UUID pUuid);
     List<User> findAll();
-    boolean delete(User pUser);
+    boolean UpdateUser(User pUser);
+    boolean delete(UUID pIdUser);
 }

@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public interface ITaskRepository {
     boolean AddTask(Task pTask);
-    Optional<Task> searchTaskById(UUID pIdTask);
-    Optional<Task> searchTaskByTitle(String pTitle);
+    Optional<Task> findTaskById(UUID pIdTask);
+    Optional<Task> fingTaskByTitle(String pTitle);
     List<Task>GetAllTasks();
     boolean updateTask(Task pTask);
     boolean deleteTask(UUID pIdTask);

@@ -1,6 +1,13 @@
 /***
- * Clase que implementa la interfaz ITaskRepositoriy,
- * con el fin de cumplir con el principio Open Closed
+ * Clase que implementa la interfaz ITaskRepository,
+ * responsable de gestionar las tareas en la aplicación.
+ * Esta clase permite realizar operaciones de creación, búsqueda,
+ * actualización y eliminación de tareas.
+ *
+ * Cumple con el Principio de Abierto/Cerrado (OCP) de SOLID,
+ * ya que permite la extensión de su funcionalidad a través de la
+ * interfaz ITaskRepository, facilitando la creación de nuevas
+ * implementaciones sin modificar el código existente.
  */
 package kodigo.principiossolid.taskmanagement.repository;
 
@@ -15,14 +22,14 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class TaskRepository implements ITaskRepository{
+public class TaskRepository implements ITaskRepository {
     private List<Task> tasks = new ArrayList<>();
 
-
     /***
-     * Metodo con logica para agregar una nueva tarea a la lista actual.
-     * @param pTask
-     * @return boolean que verifica si se agrega la nueva tarea en la lista.
+     * Método que agrega una nueva tarea a la lista actual.
+     *
+     * @param pTask La tarea que se desea agregar.
+     * @return true si la tarea fue agregada exitosamente, false en caso contrario.
      */
     @Override
     public boolean AddTask(Task pTask) {
@@ -30,32 +37,35 @@ public class TaskRepository implements ITaskRepository{
     }
 
     /***
-     * Metodo con la logica necesaria para buscar una tarea mediante el Id.
-     * @param pIdTask
-     * @return Optional<Task> si la tarea es encontrada.
+     * Método que busca una tarea mediante su ID.
+     *
+     * @param pIdTask El ID de la tarea que se desea buscar.
+     * @return Un Optional<Task> que contiene la tarea si es encontrada, o vacío si no.
      */
     @Override
-    public Optional<Task> searchTaskById(UUID pIdTask) {
+    public Optional<Task> findTaskById(UUID pIdTask) {
         return tasks.stream()
                 .filter(task -> task.getIdTask().equals(pIdTask))
                 .findFirst();
     }
 
     /***
-     * Metodo con la logica necesaria para buscar una tarea mediante el Titylo.
-     * @param pTitle
-     * @return Optional<Task> si la tarea es encontrada
+     * Método que busca una tarea mediante su título.
+     *
+     * @param pTitle El título de la tarea que se desea buscar.
+     * @return Un Optional<Task> que contiene la tarea si es encontrada, o vacío si no.
      */
     @Override
-    public Optional<Task> searchTaskByTitle(String pTitle) {
+    public Optional<Task> fingTaskByTitle(String pTitle) {
         return tasks.stream()
                 .filter(task -> task.getTitle().equalsIgnoreCase(pTitle))
                 .findFirst();
     }
 
-    /**
-     * Metodo que retorna una lista de tareas registradas.
-     * @return List de todas las tareas en el arreglo.
+    /***
+     * Método que retorna una lista de todas las tareas registradas.
+     *
+     * @return Una lista de todas las tareas en el repositorio.
      */
     @Override
     public List<Task> GetAllTasks() {
@@ -63,13 +73,14 @@ public class TaskRepository implements ITaskRepository{
     }
 
     /***
-     * Metodo con la logica necesaria para actualizar el registro de una tarea existente.
-     * @param pTask necesario para la busqueda y modificacion de la tarea.
-     * @return boolean que verifica si la actualizacion fue exitosa.
+     * Método que actualiza el registro de una tarea existente.
+     *
+     * @param pTask La tarea con la información actualizada.
+     * @return true si la actualización fue exitosa, false si no se encontró la tarea.
      */
     @Override
     public boolean updateTask(Task pTask) {
-        Optional<Task> taskOptional = searchTaskById(pTask.getIdTask());
+        Optional<Task> taskOptional = findTaskById(pTask.getIdTask());
         if (taskOptional.isPresent()) {
             Task existingTask = taskOptional.get();
             existingTask.setTitle(pTask.getTitle());
@@ -79,10 +90,11 @@ public class TaskRepository implements ITaskRepository{
         return false; // Retorna false si no se encontró la tarea
     }
 
-    /**
-     * Metodo para la eliminacion de una tarea mediante Id
-     * @param pIdTask
-     * @return boolean que verifica el exito de la eliminacion.
+    /***
+     * Método que elimina una tarea mediante su ID.
+     *
+     * @param pIdTask El ID de la tarea que se desea eliminar.
+     * @return true si la eliminación fue exitosa, false si no se encontró la tarea.
      */
     @Override
     public boolean deleteTask(UUID pIdTask) {

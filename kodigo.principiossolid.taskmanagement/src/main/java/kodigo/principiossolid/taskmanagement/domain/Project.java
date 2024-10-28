@@ -4,16 +4,14 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Project {
+    private UUID idProject;
     private String name;
     private List<Task> tasks = new ArrayList<>();
-
-    public void addTask(Task pTask){
-        tasks.add(pTask);
-    }
 }

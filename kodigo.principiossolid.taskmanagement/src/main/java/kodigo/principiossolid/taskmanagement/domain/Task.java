@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -16,7 +16,7 @@ public class Task {
     private String title;
     private String description;
     private boolean isCompleted = false;
-    private LocalDate date_Task;
+    private LocalDateTime date_Task;
 
     public void completeTask(){
         this.isCompleted = true;
