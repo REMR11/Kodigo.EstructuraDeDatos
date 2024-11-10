@@ -19,7 +19,7 @@ public class Main {
         System.out.println("Token expira en: " + authResponse.expiryTime());
 
         // Validar el token
-        String tokenValue = authResponse.authorizationHeader().replace("Bearer ", "");
+        String tokenValue = authResponse.authorizationHeader();
         TokenManagerSingleton.getInstance()
                 .validateToken(tokenValue)
                 .ifPresent(result -> {

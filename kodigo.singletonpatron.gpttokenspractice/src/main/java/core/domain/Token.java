@@ -18,7 +18,7 @@ public class Token {
     private final LocalDateTime expiryTime;
 
     public String getAuthorizationHeader() {
-        return "Bearer " + tokenValue;
+        return tokenValue;
     }
 
 }

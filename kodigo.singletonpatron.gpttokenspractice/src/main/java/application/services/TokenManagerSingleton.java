@@ -1,3 +1,7 @@
+/**
+ * Gestor de tokens para autenticación con GPT implementando el patrón Singleton.
+ * Thread-safe y con manejo de expiración de tokens.
+ */
 package application.services;
 
 import core.domain.Token;
@@ -11,10 +15,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Gestor de tokens para autenticación con GPT implementando el patrón Singleton.
- * Thread-safe y con manejo de expiración de tokens.
- */
 public class TokenManagerSingleton {
     private static volatile TokenManagerSingleton instance;
     private volatile Token currentToken;
@@ -34,22 +34,22 @@ public class TokenManagerSingleton {
     public static TokenManagerSingleton getInstance() {
         if (instance == null) {
             synchronized (TokenManagerSingleton.class) {
-                if (instance == null) {
+                if (instance == null)
                     instance = new TokenManagerSingleton();
-                }
             }
         }
         return instance;
     }
 
-    /**
+    /***
      * Genera una clave secreta aleatoria para la firma de tokens.
+     * @return
      */
     private String generateSecretKey() {
         SecureRandom secureRandom = new SecureRandom();
-        byte[] key = new byte[32];
-        secureRandom.nextBytes(key);
-        return Base64.getEncoder().encodeToString(key);
+        byte[] key = new byte[ 32 ]; //11111111 //255
+        secureRandom.nextBytes( key );
+        return Base64.getEncoder().encodeToString( key );
     }
 
     /***
@@ -57,7 +57,7 @@ public class TokenManagerSingleton {
      * @param userId
      * @return token verificado y valido al usuario.
      */
-    public synchronized Token getToken(String userId) {
+    public synchronized Token getToken( String userId ) {
         if (isTokenValid(currentToken)) {
             return currentToken;
         }
@@ -82,9 +82,9 @@ public class TokenManagerSingleton {
         return token;
     }
 
-
     /***
      * Genera un valor aleatorio para el token.
+     *
      * @return valor random codigicado a base64 url-safe.
      */
     private String generateTokenValue() {
@@ -95,8 +95,8 @@ public class TokenManagerSingleton {
     }
 
     /***
-     *
      * Verifica si un token es válido.
+     *
      * @param token
      * @return boolean que verifica que el token sea valido.
      */
@@ -115,6 +115,7 @@ public class TokenManagerSingleton {
 
     /**
      * Revoca un token específico.
+     *
      * @param tokenId
      */
     public void revokeToken( String tokenId ) {
@@ -129,7 +130,7 @@ public class TokenManagerSingleton {
      * @param tokenValue
      * @return  TokenValidationResult en caso de que la informacion sea valida
      */
-    public Optional<TokenValidationResult> validateToken(String tokenValue) {
+    public Optional<TokenValidationResult> validateToken ( String tokenValue ) {
         if ( currentToken != null && currentToken.getTokenValue().equals( tokenValue ) ) {
             if (isTokenValid(currentToken)) {
                 return Optional.of( new TokenValidationResult( true, currentToken ) );

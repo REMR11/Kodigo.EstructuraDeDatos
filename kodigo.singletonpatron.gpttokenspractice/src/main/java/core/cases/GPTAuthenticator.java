@@ -10,8 +10,8 @@ public class GPTAuthenticator {
 
     private final TokenManagerSingleton tokenManager;
 
-    public AuthenticationResponse authenticateRequest(String userId) {
-        Token token = tokenManager.getToken(userId);
+    public AuthenticationResponse authenticateRequest( String userId ) {
+        Token token = tokenManager.getToken( userId );
         return new AuthenticationResponse(
                 token.getAuthorizationHeader(),
                 token.getExpiryTime()
