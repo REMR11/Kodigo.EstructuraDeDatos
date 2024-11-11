@@ -1,14 +1,18 @@
 /***
  * Principio de inversion de dependencias
- * Se utiliza TaskRepository, UserRepository y ProjectRepository como dependencias para la clase
+ * Se utiliza
+ * {@link kodigo.principiossolid.taskmanagement.repository.TaskRepository},
+ * {@link kodigo.principiossolid.taskmanagement.repository.UserRepository},
+ * {@link kodigo.principiossolid.taskmanagement.repository.ProjectRepository}
+ * como dependencias para la clase
  * TaskManager, en este caso  TaskManager depende de una abstraccion,
  * no directamente de una implementacion directa.
  */
 package kodigo.principiossolid.taskmanagement.service;
 
-import kodigo.principiossolid.taskmanagement.domain.Project;
-import kodigo.principiossolid.taskmanagement.domain.Task;
-import kodigo.principiossolid.taskmanagement.domain.User;
+import kodigo.principiossolid.taskmanagement.domain.project.Project;
+import kodigo.principiossolid.taskmanagement.domain.task.Task;
+import kodigo.principiossolid.taskmanagement.domain.user.User;
 import kodigo.principiossolid.taskmanagement.repository.ProjectRepository;
 import kodigo.principiossolid.taskmanagement.repository.TaskRepository;
 import kodigo.principiossolid.taskmanagement.repository.UserRepository;
@@ -37,7 +41,7 @@ public class TaskManager {
             Task task = taskOptional.get();
             User user = userOptional.get();
             user.getTasks().add(task);
-            return userRepository.UpdateUser(user);
+            return userRepository.updateUser(user);
         }
         return false;
     }
@@ -68,7 +72,7 @@ public class TaskManager {
      * @return Una lista de todas las tareas disponibles en el repositorio.
      */
     public List<Task> getAllTask() {
-        return taskRepository.GetAllTasks();
+        return taskRepository.getAllTasks();
     }
 
     public List<User> getAllUserByIdTask(UUID pIdTask){

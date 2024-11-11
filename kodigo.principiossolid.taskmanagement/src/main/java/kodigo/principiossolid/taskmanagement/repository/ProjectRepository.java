@@ -11,7 +11,7 @@
  */
 package kodigo.principiossolid.taskmanagement.repository;
 
-import kodigo.principiossolid.taskmanagement.domain.Project;
+import kodigo.principiossolid.taskmanagement.domain.project.Project;
 
 import java.util.ArrayList;
 import java.util.List;

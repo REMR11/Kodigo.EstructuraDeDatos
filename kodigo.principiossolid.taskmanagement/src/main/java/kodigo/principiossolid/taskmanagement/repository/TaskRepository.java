@@ -11,7 +11,7 @@
  */
 package kodigo.principiossolid.taskmanagement.repository;
 
-import kodigo.principiossolid.taskmanagement.domain.Task;
+import kodigo.principiossolid.taskmanagement.domain.task.Task;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -32,7 +32,7 @@ public class TaskRepository implements ITaskRepository {
      * @return true si la tarea fue agregada exitosamente, false en caso contrario.
      */
     @Override
-    public boolean AddTask(Task pTask) {
+    public boolean addTask(Task pTask) {
         return tasks.add(pTask);
     }
 
@@ -49,6 +49,7 @@ public class TaskRepository implements ITaskRepository {
                 .findFirst();
     }
 
+
     /***
      * Método que busca una tarea mediante su título.
      *
@@ -56,19 +57,19 @@ public class TaskRepository implements ITaskRepository {
      * @return Un Optional<Task> que contiene la tarea si es encontrada, o vacío si no.
      */
     @Override
-    public Optional<Task> fingTaskByTitle(String pTitle) {
+    public Optional<Task> findTaskByTitle(String pTitle) {
         return tasks.stream()
                 .filter(task -> task.getTitle().equalsIgnoreCase(pTitle))
                 .findFirst();
     }
-
     /***
      * Método que retorna una lista de todas las tareas registradas.
      *
      * @return Una lista de todas las tareas en el repositorio.
      */
+
     @Override
-    public List<Task> GetAllTasks() {
+    public List<Task> getAllTasks() {
         return new ArrayList<>(tasks);
     }
 

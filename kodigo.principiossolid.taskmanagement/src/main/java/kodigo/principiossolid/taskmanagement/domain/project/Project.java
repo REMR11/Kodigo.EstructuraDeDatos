@@ -1,5 +1,6 @@
-package kodigo.principiossolid.taskmanagement.domain;
+package kodigo.principiossolid.taskmanagement.domain.project;
 
+import kodigo.principiossolid.taskmanagement.domain.task.Task;
 import lombok.*;
 
 import java.util.ArrayList;

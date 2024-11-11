@@ -6,16 +6,20 @@
 
 package kodigo.principiossolid.taskmanagement;
 
-import kodigo.principiossolid.taskmanagement.domain.Project;
-import kodigo.principiossolid.taskmanagement.domain.Task;
-import kodigo.principiossolid.taskmanagement.domain.User;
+import kodigo.principiossolid.taskmanagement.domain.project.Project;
+import kodigo.principiossolid.taskmanagement.domain.task.PriorityTask;
+import kodigo.principiossolid.taskmanagement.domain.task.RecurringTask;
+import kodigo.principiossolid.taskmanagement.domain.task.Task;
+import kodigo.principiossolid.taskmanagement.domain.user.User;
 import kodigo.principiossolid.taskmanagement.repository.IUserRepository;
 import kodigo.principiossolid.taskmanagement.repository.ProjectRepository;
 import kodigo.principiossolid.taskmanagement.repository.TaskRepository;
 import kodigo.principiossolid.taskmanagement.repository.UserRepository;
 import kodigo.principiossolid.taskmanagement.service.TaskManager;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Main {
@@ -39,20 +43,21 @@ public class Main {
         while (running) {
             System.out.println("\nTask Management System");
             System.out.println("1. Create User");
-            System.out.println("2. Create Task");
-            System.out.println("3. Create Project");
-            System.out.println("4. Assign Task to User");
-            System.out.println("5. Assign Task to Project");
-            System.out.println("6. View All Users");
-            System.out.println("7. View All Tasks");
-            System.out.println("8. View Task by ID");
-            System.out.println("9. View All Projects");
-            System.out.println("10. Get Project Information");
-            System.out.println("11. Update Task");
-            System.out.println("12. Delete Task");
-            System.out.println("13. Delete User");
-            System.out.println("14. Delete Project");
-            System.out.println("15. Exit");
+            System.out.println("2. Create Priority Task");
+            System.out.println("3. Create Recurring Task");
+            System.out.println("4. Create Project");
+            System.out.println("5. Assign Task to User");
+            System.out.println("6. Assign Task to Project");
+            System.out.println("7. View All Users");
+            System.out.println("8. View All Tasks");
+            System.out.println("9. View Task by ID");
+            System.out.println("10. View All Projects");
+            System.out.println("11. Get Project Information");
+            System.out.println("12. Update Task");
+            System.out.println("13. Delete Task");
+            System.out.println("14. Delete User");
+            System.out.println("15. Delete Project");
+            System.out.println("16. Exit");
             System.out.print("Select an option: ");
 
             int option = scanner.nextInt();
@@ -63,45 +68,48 @@ public class Main {
                     createUser (scanner, userRepository);
                     break;
                 case 2:
-                    createTask(scanner, taskRepository);
+                    createPriorityTask(scanner, taskRepository);
                     break;
                 case 3:
-                    createProject(scanner, projectRepository);
+                    createRecurringTask(scanner, taskRepository);
                     break;
                 case 4:
-                    assignTaskToUser (scanner, taskManager);
+                    createProject(scanner, projectRepository);
                     break;
                 case 5:
-                    assignTaskToProject(scanner, taskManager);
+                    assignTaskToUser (scanner, taskManager);
                     break;
                 case 6:
-                    viewAllUsers(userRepository);
+                    assignTaskToProject(scanner, taskManager);
                     break;
                 case 7:
-                    viewAllTasks(taskManager);
+                    viewAllUsers(userRepository);
                     break;
                 case 8:
-                    viewTaskById(scanner, taskManager);
+                    viewAllTasks(taskManager);
                     break;
                 case 9:
-                    viewAllProjects(projectRepository);
+                    viewTaskById(scanner, taskManager);
                     break;
                 case 10:
-                    getProjectInformation(scanner, taskManager);
+                    viewAllProjects(projectRepository);
                     break;
                 case 11:
-                    updateTask(scanner, taskManager);
+                    getProjectInformation(scanner, taskManager);
                     break;
                 case 12:
-                    deleteTask(scanner, taskManager);
+                    updateTask(scanner, taskManager);
                     break;
                 case 13:
-                    deleteUser (scanner, taskManager);
+                    deleteTask(scanner, taskManager);
                     break;
                 case 14:
-                    deleteProject(scanner, taskManager);
+                    deleteUser (scanner, taskManager);
                     break;
                 case 15:
+                    deleteProject(scanner, taskManager);
+                    break;
+                case 16:
                     running = false;
                     System.out.println("Exiting...");
                     break;
@@ -125,19 +133,71 @@ public class Main {
     }
 
     /**
-     * Crea una nueva tarea en el sistema.
+     * Crea una nueva tarea prioritarua en el sistema.
      * @param scanner Entrada de usuario para la consola.
      * @param taskRepository Repositorio de tareas donde se almacenará la nueva tarea.
      */
-    private static void createTask(Scanner scanner, TaskRepository taskRepository) {
+    private static void createPriorityTask(Scanner scanner, TaskRepository taskRepository) {
         System.out.println("Enter task name: ");
         String name = scanner.nextLine();
+
         System.out.print("Enter task description: ");
         String description = scanner.nextLine();
-        LocalDateTime now = LocalDateTime.now();
-        Task task = new Task(UUID.randomUUID(), name, description, false, now);
-        taskRepository.AddTask(task);
+
+        LocalDate now = LocalDate.now();
+
+        System.out.println("Enter the priority of the task (1 = high, 2 = medium, 3 = low): ");
+        int priority = scanner.nextInt();
+        scanner.nextLine();
+
+        Task task = new PriorityTask(name,description,now, priority);
+        taskRepository.addTask(task);
         System.out.println("Task created with ID: " + task.getIdTask());
+    }
+    /**
+     * Crea una nueva tarea prioritarua en el sistema.
+     * @param scanner Entrada de usuario para la consola.
+     * @param taskRepository Repositorio de tareas donde se almacenará la nueva tarea.
+     */
+    private static void createRecurringTask(Scanner scanner, TaskRepository taskRepository) {
+        System.out.println("Enter task name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter task description: ");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter the start date of the task (YYYY-MM-DDTHH:MM): ");
+        String dateInput = scanner.nextLine();
+        LocalDate startDate = LocalDate.parse(dateInput); // Asegúrate de que el formato sea correcto
+
+        System.out.println("Enter the recurrence unit (1 = DAYS, 2 = WEEKS, 3 = MONTHS): ");
+        int unitChoice = scanner.nextInt();
+
+        ChronoUnit recurrenceUnit = promptForRecurrenceUnit(scanner);
+
+        System.out.println("Enter the recurrence interval: ");
+        int recurrenceInterval = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+
+        // Crear la tarea recurrente
+        Task task = new RecurringTask(name, description, startDate, recurrenceUnit, recurrenceInterval);
+        taskRepository.addTask(task);
+        System.out.println("Recurring task created with ID: " + task.getIdTask());
+    }
+
+    private static ChronoUnit promptForRecurrenceUnit(Scanner scanner) {
+        System.out.println("Enter the recurrence unit (1 = DAYS, 2 = WEEKS, 3 = MONTHS): ");
+        int unitChoice = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+
+        switch (unitChoice) {
+            case 1: return ChronoUnit.DAYS;
+            case 2: return ChronoUnit.WEEKS;
+            case 3: return ChronoUnit.MONTHS;
+            default:
+                System.out.println("Invalid choice. Defaulting to DAYS.");
+                return ChronoUnit.DAYS;
+        }
     }
 
     /**
@@ -267,7 +327,7 @@ public class Main {
 
     /**
      * Actualiza una tarea en el sistema.
-     * @param scanner Entrada de usuario para la consola.
+     * @param scanner 4Entrada de usuario para la consola.
      * @param taskManager Instancia de TaskManager para manejar la actualización de tareas.
      */
     private static void updateTask(Scanner scanner, TaskManager taskManager) {

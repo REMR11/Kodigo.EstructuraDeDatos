@@ -20,7 +20,7 @@
  */
 package kodigo.principiossolid.taskmanagement.repository;
 
-import kodigo.principiossolid.taskmanagement.domain.Task;
+import kodigo.principiossolid.taskmanagement.domain.task.Task;
 
 import java.util.List;
 import java.util.Optional;

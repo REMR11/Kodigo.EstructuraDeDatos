@@ -11,7 +11,7 @@
  */
 package kodigo.principiossolid.taskmanagement.repository;
 
-import kodigo.principiossolid.taskmanagement.domain.User;
+import kodigo.principiossolid.taskmanagement.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class UserRepository implements IUserRepository {
+
     private List<User> users = new ArrayList<>();
 
     /**
@@ -62,7 +63,7 @@ public class UserRepository implements IUserRepository {
      * @return true si el usuario fue actualizado exitosamente, false si el usuario no existe.
      */
     @Override
-    public boolean UpdateUser  (User  pUser  ) {
+    public boolean updateUser(User pUser) {
         Optional<User> existingUser   = findById(pUser  .getIdUser  ());
 
         if (existingUser  .isPresent()) {
@@ -74,7 +75,6 @@ public class UserRepository implements IUserRepository {
 
         return false;
     }
-
     /**
      * Elimina un usuario del repositorio.
      *
